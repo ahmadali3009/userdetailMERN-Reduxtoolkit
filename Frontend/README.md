@@ -3,18 +3,31 @@ UserDetails is a full-stack MERN application that utilizes Redux Toolkit with as
 
 Features:
 MERN Stack: Built using MongoDB, Express.js, React, and Node.js.
+
 State Management: Integrated with Redux Toolkit and async thunk for efficient state management.
+
 Data Fetching: Uses Axios for API calls to interact with MongoDB.
+
 Responsive UI: Fully responsive user interface built with React.
+
 Scalable Architecture: Designed to be scalable and maintainable.
+
 Technologies:
-Frontend: React, Redux Toolkit, Redux Thunk
+
+Frontend: React, Redux Toolkit, which is now part of the Reduxtoolkit Redux Thunk
+
 Backend: Node.js, Express.js
-Database: MongoDB
-HTTP Client: Axios
+
+Data Fetching: Uses Axios for API calls to interact with MongoDB.
+
+CORS: Configured to handle cross-origin requests.
+
 Getting Started:
+
 Clone the repository:
+
 git clone https://github.com/yourusername/userdetails.git
+
 
 Feel free to ask any question
 
