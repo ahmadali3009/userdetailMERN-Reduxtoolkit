@@ -2,7 +2,6 @@ let user = require("../model/user")
 
 async function createhandler (req , res)
 {let result = req.body ;
-    console.log(result)
     if( !result ||
         !result.Name ||
         !result.phone ||
@@ -16,14 +15,12 @@ async function createhandler (req , res)
         phone : result.phone,
         email : result.email
     })
-    console.log("result",body);
     return res.status(201).json({msg : 'success'})
 }
 
 async function gethandler(req , res )
 {
     let resultnew = await user.find({})
-    console.log("result",resultnew);
     res.send(resultnew)
 }
 
@@ -31,10 +28,11 @@ async function updatehandler(req , res)
 {
    let phone = req.params.phone
    let resultt = req.body
+   console.log("resultforupdateuser", resultt);
+
    let request = await user.findOneAndUpdate({phone} , { Name : resultt.Name,
     phone : resultt.phone,
     email : resultt.email })
-    console.log("result",request);
     res.send(request)
 }
 
