@@ -36,14 +36,29 @@ export const getuserdetail = createAsyncThunk(
       
     },
 )
+export const userupdatedetail = createAsyncThunk(
+  'userdetail/userupdate',
+  async ( {phone, updatedUser} , thunkAPI) => {
+      try{
+          const response = await axios.patch(`http://localhost:8000/new/${phone}`, updatedUser)
+          console.log("thukinside",response.data)
+          return response.data
+
+      }
+      catch(error)
+      {
+          return thunkAPI.rejectWithValue(error.response.data)
+      }
+    
+  },
+)
 
 export const userdetailSlice = createSlice({
     name: "userdetail",
     initialState,
     reducers: {
         adduser: (state, action) => {
-            console.log("action:", action)
-            console.log("action.payload", action.payload.Name)
+         
 
             const userdetail = {
                 Name: action.payload.Name,
@@ -53,6 +68,7 @@ export const userdetailSlice = createSlice({
           
             state.userdetails.push((userdetail))
         }
+
     },
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
@@ -81,6 +97,19 @@ export const userdetailSlice = createSlice({
 
           })
           .addCase(getuserdetail.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+          }).addCase(userupdatedetail.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(userupdatedetail.fulfilled, (state , action) => {
+            state.loading = false;
+            console.log("action",action)
+              // state.userdetails[updatedUserIndex] = action.payload;
+
+          })
+          .addCase(userupdatedetail.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
           });
