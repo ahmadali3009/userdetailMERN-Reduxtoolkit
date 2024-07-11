@@ -8,6 +8,8 @@ Data Fetching: Uses Axios for API calls to interact with MongoDB.
 
 Responsive UI: Fully responsive user interface built with React.
 
+Use npm package concurrentlly for running both server at a time 
+
 Scalable Architecture: Designed to be scalable and maintainable.
 
 Technologies:
