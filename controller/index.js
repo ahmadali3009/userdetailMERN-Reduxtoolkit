@@ -32,9 +32,24 @@ async function updatehandler(req , res)
 
    let request = await user.findOneAndUpdate({phone} , { Name : resultt.Name,
     phone : resultt.phone,
-    email : resultt.email })
+    email : resultt.email },{ new: true } );
     res.send(request)
 }
 
+async function deletehandler(req, res) {
+    try {
+        const phone = req.params.phone;
+        const response = await user.findOneAndDelete({ phone });
+        if (!response) {
+            return res.status(404).send({ message: "User not found" });
+        }
+        console.log('delete====', response);
+        res.send(response);
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+}
 
-module.exports = {createhandler,updatehandler,gethandler}
+
+
+module.exports = {createhandler,updatehandler,gethandler,deletehandler}

@@ -52,6 +52,22 @@ export const userupdatedetail = createAsyncThunk(
     
   },
 )
+export const userdeletedetail = createAsyncThunk(
+  'userdetail/userdelete',
+  async ( phone , thunkAPI) => {
+      try{
+          const response = await axios.delete(`http://localhost:8000/new/${phone}`)
+          console.log("thukinside",response.data)
+          return {phone}
+
+      }
+      catch(error)
+      {
+          return thunkAPI.rejectWithValue(error.response.data)
+      }
+    
+  },
+)
 
 export const userdetailSlice = createSlice({
     name: "userdetail",
@@ -105,14 +121,28 @@ export const userdetailSlice = createSlice({
           })
           .addCase(userupdatedetail.fulfilled, (state , action) => {
             state.loading = false;
-            console.log("action",action)
-              // state.userdetails[updatedUserIndex] = action.payload;
-
+            const index = state.userdetails.findIndex(user => user.phone === action.payload.phone);
+            console.log("indexcheck------", index)
+            
+              state.userdetails[index] = action.payload;
+            
           })
           .addCase(userupdatedetail.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
+          }).addCase(userdeletedetail.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(userdeletedetail.fulfilled, (state, action) => {
+            state.loading = false;
+            state.userdetails = state.userdetails.filter(user => user.phone !== action.payload.phone);
+          })
+          .addCase(userdeletedetail.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
           });
+      
         
       },
 })
